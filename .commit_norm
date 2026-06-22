@@ -1,0 +1,23 @@
+#<type>[optional scope]: <description>
+
+# [optional body]
+
+# [optional footer(s)]
+
+# ─────────────────────────────────────────
+# TYPE — choisir un parmi :
+#   fix      → corrige un bug
+#   feat     → nouvelle fonctionnalité
+#   build    → compilation, dépendances
+#   ci       → lancement des tests
+#   docs     → documentation
+#   perf     → amélioration des performances
+#   refactor → clarté/contenu (sans bug fix ni feature)
+#   style    → formatage, espaces, nommage…
+#   test     → nouveaux tests ou mise à jour
+#   chore    → tâches diverses
+#
+# BREAKING CHANGE : ajouter ! après le type
+#   ex: feat(api)!: ...
+#   + mentionner "BREAKING CHANGE: ..." dans le footer
+# ─────────────────────────────────────────
