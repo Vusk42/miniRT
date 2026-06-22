@@ -88,17 +88,20 @@ OBJS	=	$(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 LIB_PATH	=	./libft --no-print-directory
 LIB_NAME	=	./libft/libft.a
 
+VEC_PATH	=	./libvec --no-print-directory
+VEC_NAME	=	./libvec/libvec.a
+
 MLX_DIR		=	./MLX42
 MLX_BUILD	=	$(MLX_DIR)/build
 MLX_NAME	=	$(MLX_BUILD)/libmlx42.a
 MLX_FLAGS	=	$(MLX_NAME) -ldl -lglfw -pthread -lm
 
-IFLAGS		=	-Ilibft/includes -I$(MLX_DIR)/include
+IFLAGS		=	-Ilibft/includes -Ilibvec/includes -I$(MLX_DIR)/include
 
 # ==============================================================================
 # RULES
 # ==============================================================================
-all: $(MLX_NAME) $(LIB_NAME) $(NAME)
+all: $(MLX_NAME) $(LIB_NAME) $(VEC_NAME) $(NAME)
 
 $(OBJS_DIR)/%.o: %.c
 	$(MK) $(@D)
@@ -110,6 +113,10 @@ $(LIB_NAME):
 	$(call print_box,$(YELLOW),$(EMOJI_LIB),Building libft...)
 	@make -C $(LIB_PATH)
 
+$(VEC_NAME):
+	$(call print_box,$(LBLUE),$(EMOJI_LIB),Building libvec...)
+	@make -C $(VEC_PATH)
+
 $(MLX_NAME):
 	$(call print_box,$(ORANGE),$(EMOJI_LIB),Building MLX42...)
 	@cmake -B $(MLX_BUILD) $(MLX_DIR) -Wno-dev >/dev/null
@@ -118,7 +125,7 @@ $(MLX_NAME):
 $(NAME): $(MLX_NAME) $(OBJS)
 	@printf "\r\033[2K  $(EMOJI_OK) $(GREEN)$(FILE) files compiled$(RESET)\n"
 	$(call print_box,$(BLUE),$(EMOJI_LINK),Linking $(NAME)...)
-	$(CC) $(CFLAGS) $(IFLAGS) $(OBJS) $(LIB_NAME) $(MLX_FLAGS) -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(IFLAGS) $(OBJS) $(LIB_NAME) $(VEC_NAME) $(MLX_FLAGS) -lreadline -o $(NAME)
 	$(PRINTS)
 
 clean:
@@ -127,9 +134,10 @@ clean:
 
 fclean: clean
 	@make fclean -C $(LIB_PATH)
+	@make fclean -C $(VEC_PATH)
 	$(RM) $(NAME)
 	$(RM) $(MLX_BUILD)
-	$(call print_box,$(RED),$(EMOJI_FCLEAN),$(NAME), libft and MLX42 removed)
+	$(call print_box,$(RED),$(EMOJI_FCLEAN),$(NAME), libft, libvec and MLX42 removed)
 
 re: fclean all
 	$(call print_box,$(PURPLE),$(EMOJI_RE),Rebuilt from scratch)
@@ -140,4 +148,9 @@ re-dev:
 	@make --no-print-directory all
 	$(call print_box,$(PURPLE),$(EMOJI_RE),Dev rebuild (libs kept))
 
-.PHONY: all clean fclean re re-dev
+# clangd : (re)génère compile_commands.json (pour nvim/LSP)
+cdb:
+	@python3 tools/gen_cdb.py
+	$(call print_box,$(LBLUE),$(EMOJI_LINK),compile_commands.json generated)
+
+.PHONY: all clean fclean re re-dev cdb
