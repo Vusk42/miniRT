@@ -80,7 +80,12 @@ PRINTS	=	@printf "$(RED)█▀▀▀▀▀▀▀▀▀▄▀▀▀▀▀▄  █
 SRCS_DIR	=	srcs
 OBJS_DIR	=	.objs
 
-ALL_SRCS	=	main.c
+ALL_SRCS	=	main.c \
+				window/window.c \
+				window/hooks.c \
+				render/render.c \
+				utils/color.c \
+				utils/exit.c
 SRCS		=	$(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 OBJS	=	$(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
@@ -96,7 +101,7 @@ MLX_BUILD	=	$(MLX_DIR)/build
 MLX_NAME	=	$(MLX_BUILD)/libmlx42.a
 MLX_FLAGS	=	$(MLX_NAME) -ldl -lglfw -pthread -lm
 
-IFLAGS		=	-Ilibft/includes -Ilibvec/includes -I$(MLX_DIR)/include
+IFLAGS		=	-Iincludes -Ilibft/includes -Ilibvec/includes -I$(MLX_DIR)/include
 
 # ==============================================================================
 # RULES
