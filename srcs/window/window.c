@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:17:25 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/23 23:20:21 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:49:09 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 int	ft_init_window(t_rt *rt)
 {
-	
 	rt->mlx = mlx_init(WIN_W, WIN_H, WIN_TITLE, false);
-	if (rt->mlx == NULL)
+	if (!rt->mlx)
 	{
 		ft_error_exit(mlx_strerror(mlx_errno));
 		return (1);
 	}
 	rt->img = mlx_new_image(rt->mlx, WIN_W, WIN_H);
-	if (rt->img == NULL)
+	if (!rt->img)
 	{
 		ft_error_exit(mlx_strerror(mlx_errno));
 		return (1);

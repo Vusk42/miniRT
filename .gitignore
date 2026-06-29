@@ -3,8 +3,3 @@
 log
 miniRT
 .supp
-*.pdf
-compile_commands.json
-.cache/
-tools/
-libvec/tests/

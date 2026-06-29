@@ -33,11 +33,15 @@ static int	ft_check_args(int ac, char **av)
 int	main(int ac, char **av)
 {
 	t_rt	rt;
-	(void)av;
 
 	if (ft_check_args(ac, av) != 0)
 		return (1);
 	ft_bzero(&rt, sizeof(t_rt));
+	if (ft_parse_scene(&rt, av[1]) != 0)
+	{
+		ft_cleanup(&rt);
+		return (1);
+	}
 	if (ft_init_window(&rt) != 0)
 	{
 		ft_cleanup(&rt);

@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:15:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/23 23:26:35 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:49:56 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	ft_render(t_rt *rt)
 		x = 0;
 		while (x < WIN_W)
 		{
-			c = vec_new(90, 
-				0.1 + 0.4 * ((double)y / WIN_H),
-				0.2 + 0.6 * ((double)y / WIN_H));
+			c = vec_new(90,
+					0.1 + 0.4 * ((double)y / WIN_H),
+					0.2 + 0.6 * ((double)y / WIN_H));
 			mlx_put_pixel(rt->img, x, y, ft_color_to_int(c));
 			x++;
 		}

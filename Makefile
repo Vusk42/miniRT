@@ -84,6 +84,14 @@ ALL_SRCS	=	main.c \
 				window/window.c \
 				window/hooks.c \
 				render/render.c \
+				gnl/get_next_line.c \
+				parser/parser.c \
+				parser/parse_world.c \
+				parser/parse_objects.c \
+				parser/parse_value.c \
+				parser/parse_vec.c \
+				parser/split_ws.c \
+				parser/parse_utils.c \
 				utils/color.c \
 				utils/exit.c
 SRCS		=	$(ALL_SRCS:%=$(SRCS_DIR)/%)
