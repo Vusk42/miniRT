@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 18:20:51 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/28 19:14:33 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/06 15:02:52 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			ft_parse_light(t_scene *scene, char **tok);
 int			ft_parse_sphere(t_scene *scene, char **tok);
 int			ft_parse_plane(t_scene *scene, char **tok);
 int			ft_parse_cylinder(t_scene *scene, char **tok);
+int			ft_add_object(t_scene *scene, t_object *obj);
 
 int			ft_parse_double(const char *s, double *out);
 int			ft_parse_vec3(const char *s, t_vec3 *out);

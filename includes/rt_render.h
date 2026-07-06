@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:40:27 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/28 19:16:58 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/06 15:02:56 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 int			ft_init_window(t_rt *rt);
 void		ft_render(t_rt *rt);
+void		ft_setup_camera(t_camera *cam);
+t_ray		ft_primary_ray(const t_camera *cam, uint32_t x, uint32_t y);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
 void		ft_close_hook(void *param);
 

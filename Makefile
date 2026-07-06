@@ -6,7 +6,7 @@
 #    By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/22 12:00:04 by marudlof          #+#    #+#              #
-#    Updated: 2026/06/22 12:10:27 by marudlof         ###   ########.fr        #
+#    Updated: 2026/07/06 15:03:13 by marudlof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,10 +84,12 @@ ALL_SRCS	=	main.c \
 				window/window.c \
 				window/hooks.c \
 				render/render.c \
+				render/camera.c \
 				gnl/get_next_line.c \
 				parser/parser.c \
 				parser/parse_world.c \
 				parser/parse_objects.c \
+				parser/parse_shapes.c \
 				parser/parse_value.c \
 				parser/parse_vec.c \
 				parser/split_ws.c \

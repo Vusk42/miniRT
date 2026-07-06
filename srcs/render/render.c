@@ -6,28 +6,39 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:15:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/29 12:49:56 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/06 15:00:25 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "rt_types.h"
+
+static t_color	ft_ray_dir_color(t_vec3 dir)
+{
+	t_color	ray;
+
+	ray = vec_new(0.5 * (dir.x + 1.0),
+		0.5 * (dir.y + 1.0),
+		0.5 * (dir.z + 1.0));
+	return (ray);
+}
 
 void	ft_render(t_rt *rt)
 {
 	uint32_t	x;
 	uint32_t	y;
-	t_color		c;
+	t_ray		ray;
 
+	ft_setup_camera(&rt->scene.camera);
 	y = 0;
 	while (y < WIN_H)
 	{
 		x = 0;
 		while (x < WIN_W)
 		{
-			c = vec_new(90,
-					0.1 + 0.4 * ((double)y / WIN_H),
-					0.2 + 0.6 * ((double)y / WIN_H));
-			mlx_put_pixel(rt->img, x, y, ft_color_to_int(c));
+			ray = ft_primary_ray(&rt->scene.camera, x, y);
+			mlx_put_pixel(rt->img, x, y,
+				ft_color_to_int(ft_ray_dir_color(ray.dir)));
 			x++;
 		}
 		y++;
