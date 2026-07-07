@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:18:42 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/28 19:12:06 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/07 10:00:25 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,14 @@ typedef struct s_object
 		t_cylinder	cy;
 	}	shape;
 }	t_object;
+
+typedef struct s_hit
+{
+	double	t;
+	t_vec3	point;
+	t_vec3	normal;
+	t_color	color;
+}	t_hit;
 
 typedef struct s_scene
 {

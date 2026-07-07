@@ -6,7 +6,7 @@
 #    By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/22 12:00:04 by marudlof          #+#    #+#              #
-#    Updated: 2026/07/06 15:03:13 by marudlof         ###   ########.fr        #
+#    Updated: 2026/07/07 09:59:39 by marudlof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,9 @@ ALL_SRCS	=	main.c \
 				window/hooks.c \
 				render/render.c \
 				render/camera.c \
+				render/intersect.c \
+				render/intersect_shapes.c \
+				render/intersect_cylinder.c \
 				gnl/get_next_line.c \
 				parser/parser.c \
 				parser/parse_world.c \
