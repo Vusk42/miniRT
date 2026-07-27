@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:18:42 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 19:37:59 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/28 00:19:32 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ typedef struct s_rt
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_scene		scene;
+	double		last_edit;
+	int			pending;
+	int			held;
 }	t_rt;
 
 #endif

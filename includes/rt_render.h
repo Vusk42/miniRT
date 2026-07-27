@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:40:27 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 19:37:54 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/28 00:19:28 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 # define OBJ_MOVE_STEP 1.0
 # define OBJ_ROT_STEP 0.05
 # define OBJ_RESIZE_STEP 0.5
+# define RT_DRAFT_STEP 4
+# define RT_REFINE_DELAY 0.15
+# define RT_REFINE_MAX 1.0
 
 int			ft_init_window(t_rt *rt);
-void		ft_render(t_rt *rt);
+void		ft_render(t_rt *rt, int step);
 void		ft_setup_camera(t_camera *cam);
 t_ray		ft_primary_ray(const t_camera *cam, uint32_t x, uint32_t y);
 double		ft_hit_sphere(const t_sphere *sp, t_ray ray);
@@ -45,6 +48,7 @@ int			ft_obj_resize(t_object *obj, int key);
 int			ft_select_next(t_scene *scene);
 int			ft_handle_key(t_rt *rt, int key);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
+void		ft_loop_hook(void *param);
 void		ft_close_hook(void *param);
 
 uint32_t	ft_color_to_int(t_color c);

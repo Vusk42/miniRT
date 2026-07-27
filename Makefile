@@ -6,7 +6,7 @@
 #    By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/22 12:00:04 by marudlof          #+#    #+#              #
-#    Updated: 2026/07/27 19:38:10 by marudlof         ###   ########.fr        #
+#    Updated: 2026/07/28 00:19:42 by marudlof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME	=	miniRT
 # COMMANDS
 # ==============================================================================
 CC		=	@cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -O2 -flto
 MK		=	@mkdir -p
 RM		=	@rm -rf
 FILE	=	$(shell ls -lR srcs/ | grep -F .c | wc -l)

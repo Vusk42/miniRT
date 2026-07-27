@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:17:25 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:02:13 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/28 00:19:12 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_init_window(t_rt *rt)
 		return (1);
 	}
 	mlx_key_hook(rt->mlx, &ft_key_hook, rt);
+	mlx_loop_hook(rt->mlx, &ft_loop_hook, rt);
 	mlx_close_hook(rt->mlx, &ft_close_hook, rt);
 	return (0);
 }

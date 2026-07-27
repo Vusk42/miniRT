@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:15:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 19:37:42 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/28 00:19:17 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,63 @@ static t_color	ft_trace(t_scene *scene, t_ray ray)
 }
 
 /**
- * @brief Render the whole scene into the MLX image, one ray per pixel.
- * @param rt Main context holding the scene and the target image.
+ * @brief Paint a step by step square of pixels with a single color.
+ *
+ * Blocks are clipped to the image bounds, so the right and bottom edges stay
+ * correct when the window size is not a multiple of the step.
+ * @param img Target MLX image.
+ * @param xy Top-left corner of the block: xy[0] = column, xy[1] = row.
+ * @param color Packed RGBA color to write.
+ * @param step Block side length in pixels.
  */
-void	ft_render(t_rt *rt)
+static void	ft_fill_block(mlx_image_t *img, const uint32_t xy[2],
+		uint32_t color, int step)
 {
-	uint32_t	x;
-	uint32_t	y;
-	t_ray		ray;
+	uint32_t	i;
+	uint32_t	j;
 
-	ft_setup_camera(&rt->scene.camera);
-	y = 0;
-	while (y < WIN_H)
+	j = 0;
+	while (j < (uint32_t)step && xy[1] + j < WIN_H)
 	{
-		x = 0;
-		while (x < WIN_W)
+		i = 0;
+		while (i < (uint32_t)step && xy[0] + i < WIN_W)
 		{
-			ray = ft_primary_ray(&rt->scene.camera, x, y);
-			mlx_put_pixel(rt->img, x, y,
-				ft_color_to_int(ft_trace(&rt->scene, ray)));
-			x++;
+			mlx_put_pixel(img, xy[0] + i, xy[1] + j, color);
+			i++;
 		}
-		y++;
+		j++;
+	}
+}
+
+/**
+ * @brief Render the scene into the MLX image, one ray per step by step block.
+ *
+ * A step of 1 traces every pixel (final quality); a larger step trades
+ * resolution for speed by reusing one ray's color over a whole block, which
+ * is what the draft render used while editing relies on.
+ * @param rt Main context holding the scene and the target image.
+ * @param step Block side length in pixels, clamped to at least 1.
+ */
+void	ft_render(t_rt *rt, int step)
+{
+	uint32_t	xy[2];
+	t_ray		ray;
+	t_color		color;
+
+	if (step < 1)
+		step = 1;
+	ft_setup_camera(&rt->scene.camera);
+	xy[1] = 0;
+	while (xy[1] < WIN_H)
+	{
+		xy[0] = 0;
+		while (xy[0] < WIN_W)
+		{
+			ray = ft_primary_ray(&rt->scene.camera, xy[0], xy[1]);
+			color = ft_trace(&rt->scene, ray);
+			ft_fill_block(rt->img, xy, ft_color_to_int(color), step);
+			xy[0] += step;
+		}
+		xy[1] += step;
 	}
 }
