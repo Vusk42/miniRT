@@ -83,7 +83,9 @@ OBJS_DIR	=	.objs
 ALL_SRCS	=	main.c \
 				window/window.c \
 				window/hooks.c \
+				window/controls.c \
 				render/render.c \
+				render/transform.c \
 				render/camera.c \
 				render/intersect.c \
 				render/intersect_shapes.c \

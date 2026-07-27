@@ -67,6 +67,8 @@ Everything below is currently implemented:
   self-shadowing (shadow acne).
 - **Rendering** — each hit pixel is filled with its shaded color; background
   pixels show a gradient based on the ray direction.
+- **Interactive camera** — the camera can be moved along its own basis and
+  rotated (yaw/pitch) from the keyboard, with a live re-render on each key.
 
 -----
 
@@ -124,10 +126,17 @@ Sample scenes are provided in `resources/`: `minimal.rt`, `sphere.rt`,
 
 ### Controls
 
-| Key            | Action              |
-|----------------|---------------------|
-| `ESC`          | Close the window    |
-| Window close   | Close the window    |
+The scene is re-rendered live whenever the camera moves.
+
+| Key            | Action                                      |
+|----------------|---------------------------------------------|
+| `W` / `S`      | Move the camera forward / backward          |
+| `A` / `D`      | Move the camera left / right                |
+| `Q` / `E`      | Move the camera down / up                   |
+| `←` / `→`      | Rotate the camera (yaw)                     |
+| `↑` / `↓`      | Rotate the camera (pitch)                   |
+| `ESC`          | Close the window                            |
+| Window close   | Close the window                            |
 
 -----
 
@@ -211,6 +220,7 @@ miniRT/
 - [Lambertian reflectance (Wikipedia)](https://en.wikipedia.org/wiki/Lambertian_reflectance)
 - [Scratchapixel — Introduction to shading & light transport](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals.html)
 - [Scratchapixel — Shadows & shadow acne](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows.html)
+- [Rodrigues' rotation formula (Wikipedia)](https://en.wikipedia.org/wiki/Rodrigues'_rotation_formula)
 
 -----
 

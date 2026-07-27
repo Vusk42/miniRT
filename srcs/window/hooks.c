@@ -6,14 +6,17 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:16:46 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:02:11 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:24:35 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief Keyboard callback: close the window when ESC is pressed.
+ * @brief Keyboard callback: close on ESC, otherwise drive the camera.
+ *
+ * Movement and rotation keys (see ft_cam_move / ft_cam_rotate) trigger a
+ * re-render on press and while held (repeat). Release events are ignored.
  * @param keydata Key event data provided by MLX42.
  * @param param Opaque pointer to the t_rt context.
  */
@@ -23,7 +26,15 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 
 	rt = (t_rt *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
 		mlx_close_window(rt->mlx);
+		return ;
+	}
+	if (keydata.action == MLX_RELEASE)
+		return ;
+	if (ft_cam_move(&rt->scene.camera, keydata.key)
+		|| ft_cam_rotate(&rt->scene.camera, keydata.key))
+		ft_render(rt);
 }
 
 /**
