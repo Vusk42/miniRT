@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 18:01:33 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/29 12:35:18 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:36 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+/**
+ * @brief Route a tokenized line to the parser matching its identifier.
+ * @param scene Scene being filled.
+ * @param tok NULL-terminated tokens; tok[0] is the element identifier.
+ * @return 0 on success, 1 on an unknown identifier or a parser error.
+ */
 static int	ft_dispatch(t_scene *scene, char **tok)
 {
 	static const t_dispatch	table[] = {
@@ -44,6 +50,12 @@ static int	ft_dispatch(t_scene *scene, char **tok)
 	return (1);
 }
 
+/**
+ * @brief Split one scene line into tokens and dispatch it.
+ * @param scene Scene being filled.
+ * @param line Raw line read from the .rt file.
+ * @return 0 on success or on an empty line, 1 on error.
+ */
 static int	ft_parse_line(t_scene *scene, char *line)
 {
 	char	**tok;
@@ -62,6 +74,12 @@ static int	ft_parse_line(t_scene *scene, char *line)
 	return (ret);
 }
 
+/**
+ * @brief Read the scene file line by line and parse each one.
+ * @param scene Scene being filled.
+ * @param fd Open file descriptor of the .rt scene.
+ * @return 0 if every line parsed successfully, 1 on the first error.
+ */
 static int	ft_parse_loop(t_scene *scene, int fd)
 {
 	char	*line;
@@ -79,6 +97,12 @@ static int	ft_parse_loop(t_scene *scene, int fd)
 	return (0);
 }
 
+/**
+ * @brief Open, parse and validate a .rt scene file.
+ * @param rt Main context whose scene is populated.
+ * @param path Path to the .rt scene file.
+ * @return 0 on success, 1 if the file cannot be opened, parsed or validated.
+ */
 int	ft_parse_scene(t_rt *rt, const char *path)
 {
 	int	fd;

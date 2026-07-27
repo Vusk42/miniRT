@@ -6,13 +6,18 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:51:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/29 12:35:59 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:41 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <stdlib.h>
 
+/**
+ * @brief Count whitespace-separated words in a string.
+ * @param s Input string.
+ * @return The number of words.
+ */
 static int	ft_count_words(const char *s)
 {
 	int	count;
@@ -34,6 +39,11 @@ static int	ft_count_words(const char *s)
 	return (count);
 }
 
+/**
+ * @brief Length of the leading word (up to the next whitespace).
+ * @param s String starting at a word.
+ * @return The number of non-whitespace characters at the start of s.
+ */
 static int	ft_word_len(const char *s)
 {
 	int	len;
@@ -44,6 +54,13 @@ static int	ft_word_len(const char *s)
 	return (len);
 }
 
+/**
+ * @brief Duplicate the first `len` characters of a string into a new buffer.
+ * @param s Source string.
+ * @param len Number of characters to copy.
+ * @return A newly allocated, null-terminated copy, or NULL on allocation
+ * failure.
+ */
 static char	*ft_word_dup(const char *s, int len)
 {
 	char	*word;
@@ -62,6 +79,12 @@ static char	*ft_word_dup(const char *s, int len)
 	return (word);
 }
 
+/**
+ * @brief Fill a pre-sized array with the duplicated words of a string.
+ * @param tab Destination array (sized for word count + 1).
+ * @param s Input string to tokenize.
+ * @return `tab` on success, NULL if a word duplication fails.
+ */
 static char	**ft_fill(char **tab, const char *s)
 {
 	int	len;
@@ -86,6 +109,11 @@ static char	**ft_fill(char **tab, const char *s)
 	return (tab);
 }
 
+/**
+ * @brief Split a string into words on any run of whitespace.
+ * @param s Input string.
+ * @return A NULL-terminated array of allocated words, or NULL on failure.
+ */
 char	**ft_split_ws(const char *s)
 {
 	char	**tab;

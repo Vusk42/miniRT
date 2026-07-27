@@ -6,12 +6,18 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 13:53:34 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/06 15:02:01 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:21 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/**
+ * @brief Parse a sphere line: `sp center diameter R,G,B`.
+ * @param scene Scene receiving the sphere.
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on a format, range or allocation error.
+ */
 int	ft_parse_sphere(t_scene *scene, char **tok)
 {
 	t_object	obj;
@@ -47,6 +53,12 @@ int	ft_parse_sphere(t_scene *scene, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse a plane line: `pl point normal R,G,B`.
+ * @param scene Scene receiving the plane.
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on a format, range or allocation error.
+ */
 int	ft_parse_plane(t_scene *scene, char **tok)
 {
 	t_object	obj;
@@ -80,6 +92,12 @@ int	ft_parse_plane(t_scene *scene, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse and store the cylinder fields (center, axis, radius, height).
+ * @param obj Object of type OBJ_CYLINDER to fill.
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on an invalid field or non-positive size.
+ */
 static int	ft_fill_cylinder(t_object *obj, char **tok)
 {
 	if (ft_parse_vec3(tok[1], &obj->shape.cy.center))
@@ -113,6 +131,12 @@ static int	ft_fill_cylinder(t_object *obj, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse a cylinder line: `cy center axis diam height R,G,B`.
+ * @param scene Scene receiving the cylinder.
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on a format, range or allocation error.
+ */
 int	ft_parse_cylinder(t_scene *scene, char **tok)
 {
 	t_object	obj;

@@ -6,12 +6,18 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 16:08:54 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/29 12:31:32 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:30 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/**
+ * @brief Parse a "x,y,z" triple into a vector.
+ * @param s String of three comma-separated numbers.
+ * @param out Output vector on success.
+ * @return 0 on success, 1 if the format or any component is invalid.
+ */
 int	ft_parse_vec3(const char *s, t_vec3 *out)
 {
 	char	**split;
@@ -31,6 +37,12 @@ int	ft_parse_vec3(const char *s, t_vec3 *out)
 	return (err != 0);
 }
 
+/**
+ * @brief Convert three "R,G,B" tokens in [0,255] to a normalized color.
+ * @param split Array of exactly three numeric strings.
+ * @param out Output color with components normalized to [0,1].
+ * @return 0 on success, 1 if a component is invalid or out of [0,255].
+ */
 static int	ft_fill_color(char **split, t_color *out)
 {
 	t_vec3	color;
@@ -49,6 +61,12 @@ static int	ft_fill_color(char **split, t_color *out)
 	return (0);
 }
 
+/**
+ * @brief Parse an "R,G,B" string into a normalized color.
+ * @param s String of three comma-separated integers in [0,255].
+ * @param out Output color with components normalized to [0,1].
+ * @return 0 on success, 1 if the format or any component is invalid.
+ */
 int	ft_parse_color(const char *s, t_color *out)
 {
 	char	**split;
@@ -64,6 +82,12 @@ int	ft_parse_color(const char *s, t_color *out)
 	return (err);
 }
 
+/**
+ * @brief Parse an orientation vector with components in [-1,1] and normalize.
+ * @param s String of three comma-separated numbers.
+ * @param out Output normalized vector on success.
+ * @return 0 on success, 1 if invalid, out of range or a zero-length vector.
+ */
 int	ft_parse_norm(const char *s, t_vec3 *out)
 {
 	t_vec3	v;

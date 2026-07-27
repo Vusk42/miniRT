@@ -6,12 +6,18 @@
 /*   By: marudlof <marudlof@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:20:45 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/29 12:48:06 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:01 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/**
+ * @brief Extract the next line (up to and including '\n') from the buffer.
+ * @param start Accumulated read buffer.
+ * @return A newly allocated line, or NULL if the buffer is empty or on
+ * allocation failure.
+ */
 static char	*ft_readed_line(char *start)
 {
 	int		i;
@@ -39,6 +45,12 @@ static char	*ft_readed_line(char *start)
 	return (line);
 }
 
+/**
+ * @brief Drop the first line from the buffer and keep the remainder.
+ * @param start Accumulated read buffer (freed by this call).
+ * @return A newly allocated buffer with the leftover content, or NULL when
+ * nothing remains.
+ */
 static char	*ft_move_start(char	*start)
 {
 	char	*new_buff;
@@ -67,6 +79,12 @@ static char	*ft_move_start(char	*start)
 	return (new_buff);
 }
 
+/**
+ * @brief Append a freshly read chunk to the accumulated buffer.
+ * @param start Current buffer (freed by this call).
+ * @param tmp Chunk to append.
+ * @return The joined buffer, or NULL on allocation failure.
+ */
 static char	*ft_gnl_append(char *start, char *tmp)
 {
 	char	*joined;
@@ -79,6 +97,13 @@ static char	*ft_gnl_append(char *start, char *tmp)
 	return (joined);
 }
 
+/**
+ * @brief Read from the fd until a newline is buffered or EOF is reached.
+ * @param start_str Current accumulated buffer.
+ * @param fd File descriptor to read from.
+ * @return The buffer containing at least one line, or NULL on read/alloc
+ * failure.
+ */
 static char	*ft_gnl_rl(char *start_str, int fd)
 {
 	char	*tmp;
@@ -107,6 +132,14 @@ static char	*ft_gnl_rl(char *start_str, int fd)
 	return (start_str);
 }
 
+/**
+ * @brief Read and return the next line from a file descriptor.
+ *
+ * State is kept in a static buffer between calls. Passing an invalid fd (or
+ * a non-positive BUFFER_SIZE) frees that buffer and returns NULL.
+ * @param fd File descriptor to read from.
+ * @return The next line including its trailing '\n', or NULL at EOF/on error.
+ */
 char	*get_next_line(int fd)
 {
 	char		*tmp;

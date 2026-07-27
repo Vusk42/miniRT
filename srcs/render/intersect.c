@@ -6,13 +6,20 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 15:25:23 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/07 09:59:50 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:51 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
+/**
+ * @brief Solve a*t^2 + b*t + c = 0 and return the nearest valid root.
+ * @param a Quadratic coefficient.
+ * @param b Linear coefficient.
+ * @param c Constant coefficient.
+ * @return The smallest root greater than RT_EPSILON, or -1.0 if none exists.
+ */
 static double	ft_solve_quad(double a, double b, double c)
 {
 	double	disc;
@@ -33,6 +40,12 @@ static double	ft_solve_quad(double a, double b, double c)
 	return (-1.0);
 }
 
+/**
+ * @brief Ray/sphere intersection.
+ * @param sp Sphere to test.
+ * @param ray Ray to test.
+ * @return Distance t to the nearest intersection, or -1.0 if the ray misses.
+ */
 double	ft_hit_sphere(const t_sphere *sp, t_ray ray)
 {
 	t_vec3	oc;
@@ -47,6 +60,12 @@ double	ft_hit_sphere(const t_sphere *sp, t_ray ray)
 	return (ft_solve_quad(a, b, c));
 }
 
+/**
+ * @brief Dispatch a ray/object test to the right primitive routine.
+ * @param obj Object to test (sphere, plane or cylinder).
+ * @param ray Ray to test.
+ * @return Distance t to the nearest intersection, or -1.0 if the ray misses.
+ */
 double	ft_hit_object(const t_object *obj, t_ray ray)
 {
 	double	hit;
@@ -64,6 +83,13 @@ double	ft_hit_object(const t_object *obj, t_ray ray)
 	return (hit);
 }
 
+/**
+ * @brief Fill the hit record once the closest object and its t are known.
+ * @param obj Closest object hit.
+ * @param ray Ray that produced the hit.
+ * @param hit Hit record (its `t` must be set); point, color and normal
+ * are computed here.
+ */
 static void	ft_fill_hit(const t_object *obj, t_ray ray, t_hit *hit)
 {
 	hit->point = vec_add(ray.origin, vec_scale(ray.dir, hit->t));
@@ -71,6 +97,13 @@ static void	ft_fill_hit(const t_object *obj, t_ray ray, t_hit *hit)
 	hit->normal = ft_object_normal(obj, hit->point);
 }
 
+/**
+ * @brief Find the closest object hit by a ray among all scene objects.
+ * @param scene Scene holding the object list.
+ * @param ray Ray to trace.
+ * @param hit Output hit record, filled when an object is hit.
+ * @return 1 if an object is hit, 0 otherwise.
+ */
 int	ft_closest_hit(t_scene *scene, t_ray ray, t_hit *hit)
 {
 	t_list		*node;

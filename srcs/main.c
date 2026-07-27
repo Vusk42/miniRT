@@ -6,12 +6,19 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 12:06:02 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/23 23:21:34 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:07 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/**
+ * @brief Validate the command-line arguments.
+ * @param ac Argument count.
+ * @param av Argument vector.
+ * @return 0 if exactly one argument with a ".rt" extension is given,
+ * 1 otherwise (an error message is printed).
+ */
 static int	ft_check_args(int ac, char **av)
 {
 	size_t	len;
@@ -30,6 +37,12 @@ static int	ft_check_args(int ac, char **av)
 	return (0);
 }
 
+/**
+ * @brief Program entry point: parse the scene, open the window and render it.
+ * @param ac Argument count.
+ * @param av Argument vector (expects av[1] = path to a .rt scene).
+ * @return 0 on success, 1 on any error (args, parsing or window init).
+ */
 int	main(int ac, char **av)
 {
 	t_rt	rt;

@@ -6,13 +6,18 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:15:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/07 10:00:34 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:58 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "rt_types.h"
 
+/**
+ * @brief Background gradient color derived from a ray direction.
+ * @param dir Normalized ray direction.
+ * @return A color mapping each direction component from [-1,1] to [0,1].
+ */
 static t_color	ft_ray_dir_color(t_vec3 dir)
 {
 	t_color	ray;
@@ -22,6 +27,12 @@ static t_color	ft_ray_dir_color(t_vec3 dir)
 	return (ray);
 }
 
+/**
+ * @brief Trace a ray through the scene and return its color.
+ * @param scene Scene to test against.
+ * @param ray Ray to trace.
+ * @return The hit object's color, or the background gradient if nothing is hit.
+ */
 static t_color	ft_trace(t_scene *scene, t_ray ray)
 {
 	t_hit	hit;
@@ -31,6 +42,10 @@ static t_color	ft_trace(t_scene *scene, t_ray ray)
 	return (ft_ray_dir_color(ray.dir));
 }
 
+/**
+ * @brief Render the whole scene into the MLX image, one ray per pixel.
+ * @param rt Main context holding the scene and the target image.
+ */
 void	ft_render(t_rt *rt)
 {
 	uint32_t	x;

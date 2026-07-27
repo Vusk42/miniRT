@@ -6,12 +6,18 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 17:25:15 by marudlof          #+#    #+#             */
-/*   Updated: 2026/06/28 18:52:47 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:33 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/**
+ * @brief Parse an ambient light line: `A ratio R,G,B`.
+ * @param scene Scene receiving the ambient light (only one allowed).
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on a format, range or duplicate error.
+ */
 int	ft_parse_ambient(t_scene *scene, char **tok)
 {
 	if (ft_tab_len(tok) != 3)
@@ -39,6 +45,12 @@ int	ft_parse_ambient(t_scene *scene, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse and store the camera fields (position, orientation, FOV).
+ * @param scene Scene receiving the camera.
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on an invalid field or out-of-range FOV.
+ */
 static int	ft_fill_camera(t_scene *scene, char **tok)
 {
 	if (ft_parse_vec3(tok[1], &scene->camera.pos))
@@ -60,6 +72,12 @@ static int	ft_fill_camera(t_scene *scene, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse a camera line: `C pos dir fov`.
+ * @param scene Scene receiving the camera (only one allowed).
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on a format or duplicate error.
+ */
 int	ft_parse_camera(t_scene *scene, char **tok)
 {
 	if (ft_tab_len(tok) != 4)
@@ -78,6 +96,12 @@ int	ft_parse_camera(t_scene *scene, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse and store the light fields (position, brightness, color).
+ * @param scene Scene receiving the light.
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on an invalid field or out-of-range brightness.
+ */
 static int	ft_fill_light(t_scene *scene, char **tok)
 {
 	if (ft_parse_vec3(tok[1], &scene->light.pos))
@@ -99,6 +123,12 @@ static int	ft_fill_light(t_scene *scene, char **tok)
 	return (0);
 }
 
+/**
+ * @brief Parse a light line: `L pos ratio R,G,B`.
+ * @param scene Scene receiving the light (only one allowed).
+ * @param tok NULL-terminated tokens for the line.
+ * @return 0 on success, 1 on a format or duplicate error.
+ */
 int	ft_parse_light(t_scene *scene, char **tok)
 {
 	if (ft_tab_len(tok) != 4)

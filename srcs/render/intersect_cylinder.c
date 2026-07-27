@@ -6,13 +6,19 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 16:28:13 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/07 09:59:54 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:01:53 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
+/**
+ * @brief Return the smallest of two distances, ignoring negative ones.
+ * @param a First distance (negative means "no hit").
+ * @param b Second distance (negative means "no hit").
+ * @return The smallest non-negative value, or a negative value if both miss.
+ */
 static double	ft_min_pos(double a, double b)
 {
 	if (a < 0.0)
@@ -24,6 +30,14 @@ static double	ft_min_pos(double a, double b)
 	return (b);
 }
 
+/**
+ * @brief Validate a side-surface root against the cylinder's height band.
+ * @param cy Cylinder.
+ * @param ray Ray being tested.
+ * @param t Candidate distance along the ray.
+ * @return t if the hit lies within [-height/2, height/2] along the axis and
+ * is in front of the origin, -1.0 otherwise.
+ */
 static double	ft_band_t(const t_cylinder *cy, t_ray ray, double t)
 {
 	double	m;
@@ -37,6 +51,12 @@ static double	ft_band_t(const t_cylinder *cy, t_ray ray, double t)
 	return (t);
 }
 
+/**
+ * @brief Ray intersection with the infinite side surface, bounded by height.
+ * @param cy Cylinder.
+ * @param ray Ray to test.
+ * @return Distance to the nearest valid side hit, or -1.0 if none.
+ */
 static double	ft_hit_side(const t_cylinder *cy, t_ray ray)
 {
 	t_vec3	x;
@@ -58,6 +78,13 @@ static double	ft_hit_side(const t_cylinder *cy, t_ray ray)
 	return (ft_min_pos(t[0], t[1]));
 }
 
+/**
+ * @brief Ray intersection with one of the cylinder's disk caps.
+ * @param cy Cylinder.
+ * @param ray Ray to test.
+ * @param sign +1.0 for the top cap, -1.0 for the bottom cap.
+ * @return Distance to the cap hit if inside the disk radius, -1.0 otherwise.
+ */
 static double	ft_hit_cap(const t_cylinder *cy, t_ray ray, double sign)
 {
 	t_vec3	pc;
@@ -78,6 +105,12 @@ static double	ft_hit_cap(const t_cylinder *cy, t_ray ray, double sign)
 	return (t);
 }
 
+/**
+ * @brief Ray/cylinder intersection (side surface plus both caps).
+ * @param cy Cylinder to test.
+ * @param ray Ray to test.
+ * @return Distance t to the nearest intersection, or -1.0 if the ray misses.
+ */
 double	ft_hit_cylinder(const t_cylinder *cy, t_ray ray)
 {
 	double	side;
