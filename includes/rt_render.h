@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:40:27 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/07 10:00:21 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:14:48 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ double		ft_hit_cylinder(const t_cylinder *cy, t_ray ray);
 double		ft_hit_object(const t_object *obj, t_ray ray);
 t_vec3		ft_object_normal(const t_object *obj, t_vec3 point);
 int			ft_closest_hit(t_scene *scene, t_ray ray, t_hit *hit);
+t_color		ft_lighting(t_scene *scene, t_hit *hit);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
 void		ft_close_hook(void *param);
 

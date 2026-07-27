@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:15:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:01:58 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:14:24 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_color	ft_trace(t_scene *scene, t_ray ray)
 	t_hit	hit;
 
 	if (ft_closest_hit(scene, ray, &hit))
-		return (hit.color);
+		return (ft_lighting(scene, &hit));
 	return (ft_ray_dir_color(ray.dir));
 }
 

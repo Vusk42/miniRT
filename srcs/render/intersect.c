@@ -69,6 +69,7 @@ double	ft_hit_sphere(const t_sphere *sp, t_ray ray)
 double	ft_hit_object(const t_object *obj, t_ray ray)
 {
 	double	hit;
+
 	if (obj->type == OBJ_SPHERE)
 	{
 		hit = ft_hit_sphere(&obj->shape.sp, ray);
@@ -85,6 +86,9 @@ double	ft_hit_object(const t_object *obj, t_ray ray)
 
 /**
  * @brief Fill the hit record once the closest object and its t are known.
+ *
+ * The surface normal is flipped to face the incoming ray so shading is
+ * correct on both sides of a plane and inside spheres/cylinders.
  * @param obj Closest object hit.
  * @param ray Ray that produced the hit.
  * @param hit Hit record (its `t` must be set); point, color and normal
@@ -95,6 +99,8 @@ static void	ft_fill_hit(const t_object *obj, t_ray ray, t_hit *hit)
 	hit->point = vec_add(ray.origin, vec_scale(ray.dir, hit->t));
 	hit->color = obj->color;
 	hit->normal = ft_object_normal(obj, hit->point);
+	if (vec_dot(hit->normal, ray.dir) > 0.0)
+		hit->normal = vec_neg(hit->normal);
 }
 
 /**
