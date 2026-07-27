@@ -54,9 +54,19 @@ Everything below is currently implemented:
   - **Plane** — dot product.
   - **Cylinder** — bounded lateral surface **plus the two caps**.
 - **Closest hit** — iterates over the object list and keeps the nearest positive
-  intersection, then computes the surface normal at the impact point.
-- **Rendering** — each hit pixel is filled with the flat color of the closest
-  object; background pixels show a gradient based on the ray direction.
+  intersection, then computes the surface normal at the impact point. The normal
+  is flipped to face the incoming ray, so shading stays correct on both sides of
+  a plane and inside spheres/cylinders.
+- **Lighting (simplified Phong)** — each hit is shaded with an **ambient** term
+  (so objects are never fully black) plus a **diffuse** (Lambert) term
+  `max(0, N · L)` from the scene light, modulated by the object color and clamped
+  to `[0,1]`.
+- **Hard shadows** — a shadow ray is cast from the hit point towards the light;
+  if an object stands strictly between them, the diffuse term is dropped and only
+  the ambient term remains. The ray origin is nudged along the normal to avoid
+  self-shadowing (shadow acne).
+- **Rendering** — each hit pixel is filled with its shaded color; background
+  pixels show a gradient based on the ray direction.
 
 -----
 
@@ -72,7 +82,8 @@ scene.rt
  for each pixel:
    Primary ray →  ft_primary_ray(camera, x, y)
    Closest hit →  ft_closest_hit  (sphere / plane / cylinder)
-   Shading     →  object color  (background gradient if no hit)
+   Shading     →  ft_lighting  (ambient + diffuse + shadow ray)
+                  (background gradient if no hit)
    ↓
  MLX42 image → window
 ```
@@ -155,7 +166,7 @@ miniRT/
 ├── srcs/
 │   ├── main.c          # Entry point, argument checking
 │   ├── parser/         # .rt parsing, tokenizing, range validation
-│   ├── render/         # Camera, primary rays, intersections, closest hit
+│   ├── render/         # Camera, primary rays, intersections, closest hit, lighting
 │   ├── window/         # MLX42 window and event hooks (ESC / close)
 │   ├── utils/          # Color packing, cleanup, error handling
 │   └── gnl/            # get_next_line
@@ -179,6 +190,12 @@ miniRT/
   surface.
 - **Colors** are handled as `t_vec3` (component-wise math) and packed into the
   RGBA integer expected by MLX42 only at the final write.
+- **Lighting** uses a simplified Phong model (ambient + diffuse). Colors are kept
+  normalized in `[0,1]` throughout the pipeline, so light contributions combine
+  by component-wise multiplication and are clamped once at the end.
+- **Shadows** reuse the same intersection routines: a shadow ray is tested
+  against every object and bounded by the distance to the light, with an
+  `RT_EPSILON` offset along the normal to prevent shadow acne.
 - **Error handling** always prints `Error\n` plus a message, frees the scene and
   exits without leaking.
 
@@ -190,6 +207,10 @@ miniRT/
 - [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 - [Scratchapixel — Ray Tracing](https://www.scratchapixel.com/)
 - Ray/sphere, ray/plane and ray/cylinder intersection math
+- [Phong reflection model (Wikipedia)](https://en.wikipedia.org/wiki/Phong_reflection_model)
+- [Lambertian reflectance (Wikipedia)](https://en.wikipedia.org/wiki/Lambertian_reflectance)
+- [Scratchapixel — Introduction to shading & light transport](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals.html)
+- [Scratchapixel — Shadows & shadow acne](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows.html)
 
 -----
 
