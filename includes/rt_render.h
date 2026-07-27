@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:40:27 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 19:24:58 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:37:54 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # define RT_EPSILON_CAP 1e-3
 # define CAM_MOVE_STEP 1.0
 # define CAM_ROT_STEP 0.05
+# define OBJ_MOVE_STEP 1.0
+# define OBJ_ROT_STEP 0.05
+# define OBJ_RESIZE_STEP 0.5
 
 int			ft_init_window(t_rt *rt);
 void		ft_render(t_rt *rt);
@@ -36,6 +39,11 @@ t_color		ft_lighting(t_scene *scene, t_hit *hit);
 t_vec3		ft_rotate_axis(t_vec3 v, t_vec3 axis, double angle);
 int			ft_cam_move(t_camera *cam, int key);
 int			ft_cam_rotate(t_camera *cam, int key);
+int			ft_obj_move(t_object *obj, int key);
+int			ft_obj_rotate(t_object *obj, int key);
+int			ft_obj_resize(t_object *obj, int key);
+int			ft_select_next(t_scene *scene);
+int			ft_handle_key(t_rt *rt, int key);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
 void		ft_close_hook(void *param);
 

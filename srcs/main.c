@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 12:06:02 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:01:07 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:37:47 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int ac, char **av)
 		ft_cleanup(&rt);
 		return (1);
 	}
+	if (rt.scene.objects != NULL)
+		rt.scene.selected = rt.scene.objects->content;
 	ft_render(&rt);
 	mlx_loop(rt.mlx);
 	ft_cleanup(&rt);

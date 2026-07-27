@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 15:25:23 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:01:51 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:37:36 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static void	ft_fill_hit(const t_object *obj, t_ray ray, t_hit *hit)
 {
 	hit->point = vec_add(ray.origin, vec_scale(ray.dir, hit->t));
 	hit->color = obj->color;
+	hit->obj = obj;
 	hit->normal = ft_object_normal(obj, hit->point);
 	if (vec_dot(hit->normal, ray.dir) > 0.0)
 		hit->normal = vec_neg(hit->normal);

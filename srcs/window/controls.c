@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:28:14 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 19:24:29 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:37:23 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,30 @@ int	ft_cam_rotate(t_camera *cam, int key)
 	else
 		return (0);
 	return (1);
+}
+
+/**
+ * @brief Dispatch a key press to the camera, the selection or the object.
+ *
+ * Camera moves/rotations win first, then TAB cycles the selection, then the
+ * remaining keys act on the selected object (translate / rotate / resize).
+ * @param rt Main context (camera, object list and current selection).
+ * @param key MLX42 key symbol of the pressed key.
+ * @return 1 if the scene changed and must be re-rendered, 0 otherwise.
+ */
+int	ft_handle_key(t_rt *rt, int key)
+{
+	t_camera	*cam;
+	t_object	*sel;
+
+	cam = &rt->scene.camera;
+	if (ft_cam_move(cam, key) || ft_cam_rotate(cam, key))
+		return (1);
+	if (key == MLX_KEY_TAB)
+		return (ft_select_next(&rt->scene));
+	sel = rt->scene.selected;
+	if (sel == NULL)
+		return (0);
+	return (ft_obj_move(sel, key) || ft_obj_rotate(sel, key)
+		|| ft_obj_resize(sel, key));
 }

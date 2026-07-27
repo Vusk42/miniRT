@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:15:09 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:14:24 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:37:42 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ static t_color	ft_ray_dir_color(t_vec3 dir)
 static t_color	ft_trace(t_scene *scene, t_ray ray)
 {
 	t_hit	hit;
+	t_color	color;
 
-	if (ft_closest_hit(scene, ray, &hit))
-		return (ft_lighting(scene, &hit));
-	return (ft_ray_dir_color(ray.dir));
+	if (!ft_closest_hit(scene, ray, &hit))
+		return (ft_ray_dir_color(ray.dir));
+	color = ft_lighting(scene, &hit);
+	if (hit.obj == scene->selected)
+		color = vec_lerp(color, vec_new(1.0, 1.0, 1.0), 0.35);
+	return (color);
 }
 
 /**

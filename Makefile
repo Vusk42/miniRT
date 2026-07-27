@@ -6,7 +6,7 @@
 #    By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/22 12:00:04 by marudlof          #+#    #+#              #
-#    Updated: 2026/07/27 18:14:54 by marudlof         ###   ########.fr        #
+#    Updated: 2026/07/27 19:38:10 by marudlof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,8 @@ ALL_SRCS	=	main.c \
 				window/window.c \
 				window/hooks.c \
 				window/controls.c \
+				window/obj_move.c \
+				window/obj_edit.c \
 				render/render.c \
 				render/transform.c \
 				render/camera.c \

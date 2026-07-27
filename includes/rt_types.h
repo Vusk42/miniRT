@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:18:42 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/07 10:00:25 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:37:59 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ typedef struct s_object
 
 typedef struct s_hit
 {
-	double	t;
-	t_vec3	point;
-	t_vec3	normal;
-	t_color	color;
+	double				t;
+	t_vec3				point;
+	t_vec3				normal;
+	t_color				color;
+	const t_object		*obj;
 }	t_hit;
 
 typedef struct s_scene
@@ -100,6 +101,7 @@ typedef struct s_scene
 	t_camera	camera;
 	t_light		light;
 	t_list		*objects;
+	t_object	*selected;
 	int			has_ambient;
 	int			has_camera;
 	int			has_light;
