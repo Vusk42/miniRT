@@ -6,7 +6,7 @@
 #    By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/22 12:00:04 by marudlof          #+#    #+#              #
-#    Updated: 2026/07/28 00:19:42 by marudlof         ###   ########.fr        #
+#    Updated: 2026/07/28 00:40:56 by marudlof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ ALL_SRCS	=	main.c \
 				parser/parse_world.c \
 				parser/parse_objects.c \
 				parser/parse_shapes.c \
+				parser/parse_cylinder.c \
 				parser/parse_value.c \
 				parser/parse_vec.c \
 				parser/split_ws.c \

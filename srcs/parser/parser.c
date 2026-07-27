@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 18:01:33 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 18:01:36 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/28 00:41:12 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	ft_parse_scene(t_rt *rt, const char *path)
 	}
 	ret = ft_parse_loop(&rt->scene, fd);
 	close(fd);
-	get_next_line(-1); //Free static if there was an error in parse_loop;
+	get_next_line(-1);
 	if (ret != 0)
 		return (1);
 	ret = ft_check_scene(&rt->scene);
