@@ -6,7 +6,7 @@
 /*   By: marudlof <marudlof@42.angouleme.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:28:14 by marudlof          #+#    #+#             */
-/*   Updated: 2026/07/27 19:37:23 by marudlof         ###   ########.fr       */
+/*   Updated: 2026/07/28 14:19:32 by marudlof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int	ft_cam_rotate(t_camera *cam, int key)
 	t_vec3	up;
 
 	up = vec_new(0.0, 1.0, 0.0);
-	if (key == MLX_KEY_LEFT)
+	if (key == MLX_KEY_RIGHT)
 		cam->dir = ft_rotate_axis(cam->dir, up, CAM_ROT_STEP);
-	else if (key == MLX_KEY_RIGHT)
+	else if (key == MLX_KEY_LEFT)
 		cam->dir = ft_rotate_axis(cam->dir, up, -CAM_ROT_STEP);
-	else if (key == MLX_KEY_UP)
-		cam->dir = ft_rotate_axis(cam->dir, cam->right, CAM_ROT_STEP);
 	else if (key == MLX_KEY_DOWN)
+		cam->dir = ft_rotate_axis(cam->dir, cam->right, CAM_ROT_STEP);
+	else if (key == MLX_KEY_UP)
 		cam->dir = ft_rotate_axis(cam->dir, cam->right, -CAM_ROT_STEP);
 	else
 		return (0);
